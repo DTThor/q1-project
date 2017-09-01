@@ -1,0 +1,23 @@
+html {
+  background-color: slategrey;
+}
+
+h1 {
+  font-family: 'Press Start 2P', serif;
+  padding-top: 50px;
+  margin-bottom: 0;
+  text-align: center;
+
+}
+
+#game {
+  border: 1px solid black;
+  background-color: white;
+  position: absolute;
+  top: 15%;
+  left: 8%;
+}
+
+main {
+  margin: auto;
+}
