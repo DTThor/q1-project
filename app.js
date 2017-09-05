@@ -63,51 +63,39 @@ window.onkeydown = function (event) {
 
 
 function animate() {
+  // request another animation frame
+  if (continueAnimating) {
+    requestAnimationFrame(animate);
+  }
 
-    // request another animation frame
+//increment score if still alive
+  if(alive){
+    score++;
+  }
 
-    if (continueAnimating) {
-        requestAnimationFrame(animate);
+
+  // for each icicle
+  // (1) check for collisions
+  // (2) advance the icicle
+  // (3) if the icicle falls below the canvas, reset that icicle
+
+  for (let i = 0; i < icicles.length; i++) {
+    let icicle = icicles[i];
+    // test for icicle-hero collision
+    if (isColliding(icicle, hero)) {
+      alive = false;
+      return deathPage();
     }
-
-    // for each icicle
-    // (1) check for collisions
-    // (2) advance the icicle
-    // (3) if the icicle falls below the canvas, reset that icicle
-    // (4) increment score if still alive
-
-    if(alive){
-      score++;
+    // advance the icicles
+    icicle.y += icicle.speed;
+    // if the icicle is below the canvas, reset that icicle
+    if (icicle.y > canvas.height) {
+      resetIcicle(icicle);
     }
+  }
 
-
-
-    for (let i = 0; i < icicles.length; i++) {
-      let icicle = icicles[i];
-
-
-
-        // test for icicle-hero collision
-        if (isColliding(icicle, hero)) {
-          alive = false;
-          return deathPage();
-          //window.location.reload(true);
-
-        }
-
-        // advance the icicles
-        icicle.y += icicle.speed;
-
-        // if the icicle is below the canvas,
-        if (icicle.y > canvas.height) {
-            resetIcicle(icicle);
-        }
-
-
-    }
-
-    // redraw everything
-    drawEverything();
+  // redraw everything
+  drawEverything();
 
 }
 
@@ -125,6 +113,7 @@ function deathPage(){
   window.onkeydown = function (event) {
     if(event.keycode === 13){
       score = startingScore;
+      alive = true;
       hero.x = canvas.width / 2;
       for (let i = 0; i < icicles.length; i++) {
           resetIcicle(icicles[i]);
@@ -132,49 +121,48 @@ function deathPage(){
       if (!continueAnimating) {
           continueAnimating = true;
           animate();
-      };    }
-  }
-}
+      };
+    };
+  };
+};
 
 
 function isColliding(a, b) {
-    return !(
-    b.x > a.x + a.width || b.x + b.width < a.x || b.y > a.y + a.height || b.y + b.height < a.y);
+  return !(b.x > a.x + a.width || b.x + b.width < a.x || b.y > a.y + a.height || b.y + b.height < a.y);
 }
 
 function drawEverything() {
+  // clear the canvas
+  context.clearRect(0, 0, canvas.width, canvas.height);
 
-    // clear the canvas
-    context.clearRect(0, 0, canvas.width, canvas.height);
+  // draw the background
+  context.fillStyle = "lightgray";
+  context.fillRect(0, 0, canvas.width, canvas.height);
 
-    // draw the background
-    context.fillStyle = "lightgray";
-    context.fillRect(0, 0, canvas.width, canvas.height);
+  // draw the hero
+  context.fillStyle = "black";
+  context.fillRect(hero.x, hero.y, hero.width, hero.height);
+  context.clearRect(hero.x+2, hero.y+2, 2, 2);
+  context.clearRect(hero.x+6, hero.y+2, 2, 2);
+  context.clearRect(hero.x+2, hero.y+6, 6, 1);
+  context.strokeStyle = "lightgray";
+  context.strokeRect(hero.x, hero.y, hero.width, hero.height);
 
-    // draw the hero
-    context.fillStyle = "black";
-    context.fillRect(hero.x, hero.y, hero.width, hero.height);
-    context.clearRect(hero.x+2, hero.y+2, 2, 2);
-    context.clearRect(hero.x+6, hero.y+2, 2, 2);
-    context.clearRect(hero.x+2, hero.y+6, 6, 1);
-    context.strokeStyle = "lightgray";
-    context.strokeRect(hero.x, hero.y, hero.width, hero.height);
-
-    // draw all icicles
-    for (let i = 0; i < icicles.length; i++) {
-        let icicle = icicles[i];
-        // MAYBE ADD IMAGE OF ICICLE LATER, drawImage(iciclesImg,icicle.x,icicle.y)
-        context.fillStyle = "white";
-        context.strokeStyle = "black";
-        context.strokeRect(icicle.x, icicle.y, icicle.width, icicle.height);
-        context.fillRect(icicle.x, icicle.y, icicle.width, icicle.height);
-    }
+  // draw all icicles
+  for (let i = 0; i < icicles.length; i++) {
+    let icicle = icicles[i];
+    // MAYBE ADD IMAGE OF ICICLE LATER, drawImage(iciclesImg,icicle.x,icicle.y)
+    context.fillStyle = "white";
+    context.strokeStyle = "black";
+    context.strokeRect(icicle.x, icicle.y, icicle.width, icicle.height);
+    context.fillRect(icicle.x, icicle.y, icicle.width, icicle.height);
+  }
 
     // draw the score
-    context.font = "24px monospace";
-    context.fillStyle = "black";
-    context.fillText("Score: " + score, 10, 35);
-}
+  context.font = "24px monospace";
+  context.fillStyle = "black";
+  context.fillText("Score: " + score, 10, 35);
+};
 
 
 
