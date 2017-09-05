@@ -51,14 +51,14 @@ function resetIcicle(icicle) {
 
 //left and right keypush event handlers
 window.onkeydown = function (event) {
-    if (event.keyCode == 39) {
-        hero.x += hero.heroSpeed;
-    } else if (event.keyCode == 37) {
-        hero.x -= hero.heroSpeed;
-        if (hero.x <= 0) {
-            hero.x = 0;
-        }
-    }
+  if (event.keyCode === 39) {
+    hero.x += hero.heroSpeed;
+  } else if (event.keyCode === 37) {
+    hero.x -= hero.heroSpeed;
+  if (hero.x <= 0) {
+    hero.x = 0;
+  }
+  }
 }
 
 
@@ -115,11 +115,25 @@ function deathPage(){
   let imgGameOver = new Image();
   imgGameOver.onload = function(){
     context.drawImage(imgGameOver, 0, 0);
-    context.fillText('You have been brutally killed by an icicle. Bummer...SCORE: ' + score, canvas.width / 2 - 400, canvas.height / 2);
+    context.fillText('YOU GOT KILLED BY AN ICICLE!', canvas.width / 2 - 250, canvas.height / 2 - 100);
+    context.fillText('SCORE: ' + score, canvas.width / 2 - 100, canvas.height / 2);
+    context.fillText('Press ENTER to try again', canvas.width / 2 - 250, canvas.height / 2 + 100);
     context.fillStyle = 'white';
-    context.font = '32px serif'
+    context.font = '32px monospace';
   };
-  imgGameOver.src ="http://cdn.wallpapersafari.com/12/10/eD53j0.jpg"
+  imgGameOver.src ="http://cdn.wallpapersafari.com/12/10/eD53j0.jpg";
+  window.onkeydown = function (event) {
+    if(event.keycode === 13){
+      score = startingScore;
+      hero.x = canvas.width / 2;
+      for (let i = 0; i < icicles.length; i++) {
+          resetIcicle(icicles[i]);
+      }
+      if (!continueAnimating) {
+          continueAnimating = true;
+          animate();
+      };    }
+  }
 }
 
 
@@ -157,7 +171,7 @@ function drawEverything() {
     }
 
     // draw the score
-    context.font = "24px serif";
+    context.font = "24px monospace";
     context.fillStyle = "black";
     context.fillText("Score: " + score, 10, 35);
 }
