@@ -76,9 +76,11 @@ function animate() {
     // (3) if the icicle falls below the canvas, reset that icicle
     // (4) increment score if still alive
 
-    if(alive === true){
-        score++;
+    if(alive){
+      score++;
     }
+
+
 
     for (let i = 0; i < icicles.length; i++) {
       let icicle = icicles[i];
@@ -88,9 +90,8 @@ function animate() {
         // test for icicle-hero collision
         if (isColliding(icicle, hero)) {
           alive = false;
-          //ADD DEATH PAGE FUNCTION HERE
-          alert(`DEAD! Game over man! Game over. \n \n Score: ${score}`);
-          window.location.reload(true);
+          return deathPage();
+          //window.location.reload(true);
 
         }
 
@@ -109,6 +110,18 @@ function animate() {
     drawEverything();
 
 }
+
+function deathPage(){
+  let imgGameOver = new Image();
+  imgGameOver.onload = function(){
+    context.drawImage(imgGameOver, 0, 0);
+    context.fillText('You have been brutally killed by an icicle. Bummer...SCORE: ' + score, canvas.width / 2 - 400, canvas.height / 2);
+    context.fillStyle = 'white';
+    context.font = '32px serif'
+  };
+  imgGameOver.src ="http://cdn.wallpapersafari.com/12/10/eD53j0.jpg"
+}
+
 
 function isColliding(a, b) {
     return !(
