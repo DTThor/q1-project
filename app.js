@@ -49,17 +49,20 @@ function resetIcicle(icicle) {
 }
 
 
-//left and right keypush event handlers
-window.onkeydown = function (event) {
-  if (event.keyCode === 39) {
-    hero.x += hero.heroSpeed;
-  } else if (event.keyCode === 37) {
-    hero.x -= hero.heroSpeed;
-  if (hero.x <= 0) {
-    hero.x = 0;
-  }
+//move hero left and right
+function moveHero() {
+  window.onkeydown = function (event) {
+    if (event.keyCode === 39) {
+      hero.x += hero.heroSpeed;
+    } else if (event.keyCode === 37) {
+      hero.x -= hero.heroSpeed;
+      if (hero.x <= 0) {
+        hero.x = 0;
+      }
+    }
   }
 }
+moveHero();
 
 
 function animate() {
@@ -71,10 +74,7 @@ function animate() {
   if(alive){
     score++;
   }
-  // for each icicle
-  // (1) check for collisions
-  // (2) advance the icicle
-  // (3) if the icicle falls below the canvas, reset that icicle
+
   for (let i = 0; i < icicles.length; i++) {
     let icicle = icicles[i];
     // test for icicle-hero collision
@@ -106,27 +106,10 @@ function deathPage(){
   imgGameOver.src ="http://cdn.wallpapersafari.com/12/10/eD53j0.jpg";
   window.onkeydown = function (event) {
     if(event.keycode === 13){
-      score = startingScore;
-      hero.x = canvas.width / 2;
-      for (let i = 0; i < icicles.length; i++) {
-        score++;
-        resetIcicle(icicles[i]);
-      }
-      if (!continueAnimating) {
-          continueAnimating = true;
-          animate();
-      };
+      window.location.reload();
     };
-    window.onkeydown = function (event) {
-      if (event.keyCode === 39) {
-        hero.x += hero.heroSpeed;
-      } else if (event.keyCode === 37) {
-        hero.x -= hero.heroSpeed;
-        if (hero.x <= 0) {
-          hero.x = 0;
-        }
-      }
-    }
+    alive = true;
+    moveHero();
   };
 };
 
