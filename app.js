@@ -5,6 +5,7 @@ function load(){
 //canvas variables
 let canvas = document.getElementById("game");
 let context = canvas.getContext("2d");
+let addScore = true;
 
 // game variables
 let startingScore = 0;
@@ -84,7 +85,7 @@ function animate() {
     requestAnimationFrame(animate);
   }
 //increment score if still alive
-  if(alive){
+  if(addScore){
     score++;
   }
 
@@ -128,6 +129,7 @@ function deathPage(){
     alive = true;
     moveHero();
   };
+  addScore = false;
 };
 
 
@@ -181,6 +183,7 @@ $("#start").click(function () {
         continueAnimating = true;
         animate();
     };
+    addScore = true;
 });
 
 
