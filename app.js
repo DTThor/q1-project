@@ -8,6 +8,7 @@ let context = canvas.getContext("2d");
 let startingScore = 0;
 let continueAnimating = false;
 let score = 0;
+let highscore = localStorage.getItem("highscore");
 let alive = true;
 
 // hero variables
@@ -43,9 +44,9 @@ function addIcicle() {
 // move the icicle to a random position near the top-of-canvas
 // assign the icicle a random speed
 function resetIcicle(icicle) {
-    icicle.x = Math.random() * (canvas.width - icicleWidth);
-    icicle.y = 15 + Math.random() * 30;
-    icicle.speed = 5 + Math.random() * 0.5;
+  icicle.x = Math.random() * (canvas.width - icicleWidth);
+  icicle.y = 15 + Math.random() * 30;
+  icicle.speed = 5 + Math.random() * 0.5;
 }
 
 
@@ -94,12 +95,16 @@ function animate() {
 }
 
 function deathPage(){
+  if (score > highscore) {
+    localStorage.setItem("highscore", score);
+  };
   let imgGameOver = new Image();
   imgGameOver.onload = function(){
     context.drawImage(imgGameOver, 0, 0);
     context.fillText('YOU GOT KILLED BY AN ICICLE!', canvas.width / 2 - 250, canvas.height / 2 - 100);
     context.fillText('SCORE: ' + score, canvas.width / 2 - 100, canvas.height / 2);
-    context.fillText('Press ENTER to try again', canvas.width / 2 - 250, canvas.height / 2 + 100);
+    context.fillText('HIGHSCORE: ' + highscore, canvas.width / 2 - 150, canvas.height / 2 + 50);
+    context.fillText('Press ENTER to try again', canvas.width / 2 - 250, canvas.height / 2 + 150);
     context.fillStyle = 'white';
     context.font = '32px monospace';
   };
