@@ -5,7 +5,7 @@ html {
 h1 {
   font-family: monospace;
   font-size: 40px;
-  padding-top: 50px;
+  padding-top: 10px;
   margin-bottom: 0;
   text-align: center;
 
@@ -21,4 +21,16 @@ h1 {
 
 main {
   margin: auto;
+}
+
+#start {
+  outline: none;
+  font-size: 18px;
+  font-family: monospace;
+  color: lightgray;
+  background-color: black;
+}
+
+.wrapper {
+  text-align: center;
 }

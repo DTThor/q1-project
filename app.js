@@ -1,6 +1,8 @@
 // //ONLOAD FUNCTION
 function load(){
-  //canvas variables
+
+
+//canvas variables
 let canvas = document.getElementById("game");
 let context = canvas.getContext("2d");
 
@@ -24,13 +26,23 @@ let hero = {
 }
 
 // icicle variables
-let icicleWidth = 15;
+let icicleWidth = 5;
 let icicleHeight = 15;
-let totalIcicles = 60;
+let totalIcicles = 70;
 let icicles = [];
 for (let i = 0; i < totalIcicles; i++) {
     addIcicle();
 }
+
+function homePage(){
+  let imgHome = new Image();
+  imgHome.onload = function(){
+    context.drawImage(imgHome, 0, 0);
+  };
+  imgHome.src ="http://blog.mycoughdrop.com/content/images/2017/07/avalanche.jpg";
+}
+
+homePage();
 
 function addIcicle() {
     let icicle = {
