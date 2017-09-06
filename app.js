@@ -7,7 +7,7 @@ let context = canvas.getContext("2d");
 // game variables
 let startingScore = 0;
 let continueAnimating = false;
-let score;
+let score = 0;
 let alive = true;
 
 // hero variables
@@ -67,18 +67,14 @@ function animate() {
   if (continueAnimating) {
     requestAnimationFrame(animate);
   }
-
 //increment score if still alive
   if(alive){
     score++;
   }
-
-
   // for each icicle
   // (1) check for collisions
   // (2) advance the icicle
   // (3) if the icicle falls below the canvas, reset that icicle
-
   for (let i = 0; i < icicles.length; i++) {
     let icicle = icicles[i];
     // test for icicle-hero collision
@@ -93,10 +89,8 @@ function animate() {
       resetIcicle(icicle);
     }
   }
-
   // redraw everything
   drawEverything();
-
 }
 
 function deathPage(){
@@ -113,16 +107,26 @@ function deathPage(){
   window.onkeydown = function (event) {
     if(event.keycode === 13){
       score = startingScore;
-      alive = true;
       hero.x = canvas.width / 2;
       for (let i = 0; i < icicles.length; i++) {
-          resetIcicle(icicles[i]);
+        score++;
+        resetIcicle(icicles[i]);
       }
       if (!continueAnimating) {
           continueAnimating = true;
           animate();
       };
     };
+    window.onkeydown = function (event) {
+      if (event.keyCode === 39) {
+        hero.x += hero.heroSpeed;
+      } else if (event.keyCode === 37) {
+        hero.x -= hero.heroSpeed;
+        if (hero.x <= 0) {
+          hero.x = 0;
+        }
+      }
+    }
   };
 };
 
