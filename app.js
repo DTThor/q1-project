@@ -124,7 +124,7 @@ function deathPage(){
   imgGameOver.src ="http://cdn.wallpapersafari.com/12/10/eD53j0.jpg";
   window.onkeydown = function (event) {
     if(event.keycode === 13){
-      window.location.reload();
+      begin();
     };
     alive = true;
     moveHero();
@@ -173,7 +173,7 @@ function drawEverything() {
 
 
 // button to start the game
-$("#start").click(function () {
+$("#start").click(function begin() {
     score = startingScore;
     hero.x = canvas.width / 2;
     for (let i = 0; i < icicles.length; i++) {
