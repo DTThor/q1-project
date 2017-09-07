@@ -2,6 +2,8 @@
 function load(){
 
 
+
+
 //canvas variables
 let canvas = document.getElementById("game");
 let context = canvas.getContext("2d");
@@ -41,7 +43,9 @@ function homePage(){
   };
   imgHome.src ="http://blog.mycoughdrop.com/content/images/2017/07/avalanche.jpg";
 }
+
 homePage();
+
 
 function addIcicle() {
     let icicle = {
@@ -112,6 +116,7 @@ function deathPage(){
     if (score > highscore) {
       localStorage.setItem("highscore", score);
       context.fillText('NEW HIGHSCORE!!!', canvas.width / 2 - 170, canvas.height / 2 - 50);
+      context.fillStyle = 'blue';
     };
     context.fillText('YOU GOT KILLED BY AN ICICLE!', canvas.width / 2 - 250, canvas.height / 2 - 100);
     context.fillText('SCORE: ' + score, canvas.width / 2 - 100, canvas.height / 2);
@@ -178,15 +183,15 @@ function drawEverything() {
 
 // button to start the game
 $("#start").click(function begin() {
-    score = startingScore;
-    hero.x = canvas.width / 2;
-    for (let i = 0; i < icicles.length; i++) {
+  score = startingScore;
+  hero.x = canvas.width / 2;
+  for (let i = 0; i < icicles.length; i++) {
         resetIcicle(icicles[i]);
-    }
-    if (!continueAnimating) {
-        continueAnimating = true;
-        animate();
-    };
+  }
+  if (!continueAnimating) {
+    continueAnimating = true;
+    animate();
+  };
     incScore = true;
 });
 
