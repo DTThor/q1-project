@@ -82,6 +82,9 @@ function moveHero() {
   window.onkeydown = function (event) {
     if (event.keyCode === 39) {
       hero.x += hero.heroSpeed;
+      if (hero.x >= canvas.width){
+        hero.x = canvas.width-hero.width;
+      }
     } else if (event.keyCode === 37) {
       hero.x -= hero.heroSpeed;
       if (hero.x <= 0) {
