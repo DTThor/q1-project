@@ -5,19 +5,18 @@ function load(){
 //canvas variables
 let canvas = document.getElementById("game");
 let context = canvas.getContext("2d");
-let addScore = true;
+let incScore = true;
 
 // game variables
 let startingScore = 0;
 let continueAnimating = false;
 let score = 0;
-let highscore = localStorage.getItem("highscore");
-let alive = true;
+let highscore = window.localStorage.getItem("highscore");
 
 // hero variables
 let heroWidth = 10;
 let heroHeight = 25;
-let heroSpeed = 40;
+let heroSpeed = 30;
 let hero = {
     x: 0,
     y: canvas.height - heroHeight,
@@ -42,7 +41,6 @@ function homePage(){
   };
   imgHome.src ="http://blog.mycoughdrop.com/content/images/2017/07/avalanche.jpg";
 }
-
 homePage();
 
 function addIcicle() {
@@ -58,7 +56,7 @@ function addIcicle() {
 // assign the icicle a random speed
 function resetIcicle(icicle) {
   icicle.x = Math.random() * (canvas.width - icicleWidth);
-  icicle.y = 15 + Math.random() * 30;
+  icicle.y = Math.random() * 100;
   icicle.speed = 5 + Math.random() * 0.5;
 }
 
@@ -85,7 +83,7 @@ function animate() {
     requestAnimationFrame(animate);
   }
 //increment score if still alive
-  if(addScore){
+  if(incScore){
     score++;
   }
 
@@ -93,7 +91,7 @@ function animate() {
     let icicle = icicles[i];
     // test for icicle-hero collision
     if (isColliding(icicle, hero)) {
-      alive = false;
+      //alive = false;
       return deathPage();
     }
     // advance the icicles
@@ -109,7 +107,7 @@ function animate() {
 
 function deathPage(){
   if (score > highscore) {
-    localStorage.setItem("highscore", score);
+    window.localStorage.setItem("highscore", score);
   };
   let imgGameOver = new Image();
   imgGameOver.onload = function(){
@@ -126,10 +124,9 @@ function deathPage(){
     if(event.keycode === 13){
       begin();
     };
-    alive = true;
     moveHero();
   };
-  addScore = false;
+  incScore = false;
 };
 
 
@@ -146,6 +143,12 @@ function drawEverything() {
   context.fillRect(0, 0, canvas.width, canvas.height);
 
   // draw the hero
+  // let imgHero = new Image();
+  // imgHero.onload = function(){
+  //   console.log('booyah');
+  //   context.drawImage(imgHero, hero.x, hero.y, hero.width, hero.height);
+  // }
+  // imgHero.src="http://68.media.tumblr.com/1277da84031c9ab632f3d9f1e9d6beab/tumblr_mn9ct2VVWP1r413h3o1_400.jpg";
   context.fillStyle = "black";
   context.fillRect(hero.x, hero.y, hero.width, hero.height);
   context.clearRect(hero.x+2, hero.y+2, 2, 2);
@@ -183,7 +186,7 @@ $("#start").click(function begin() {
         continueAnimating = true;
         animate();
     };
-    addScore = true;
+    incScore = true;
 });
 
 
