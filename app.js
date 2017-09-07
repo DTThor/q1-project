@@ -1,8 +1,11 @@
 // //ONLOAD FUNCTION
 function load(){
 
+/***************************************************
 
+TOO MANY VARIABLES UP IN HERE
 
+****************************************************/
 
 //canvas variables
 let canvas = document.getElementById("game");
@@ -14,6 +17,9 @@ let startingScore = 0;
 let continueAnimating = false;
 let score = 0;
 let highscore = localStorage.getItem("highscore");
+let audio = document.createElement('audio');
+audio.src = 'icydeath.mp3';
+let deathSound = false;
 
 // hero variables
 let heroWidth = 10;
@@ -36,24 +42,30 @@ for (let i = 0; i < totalIcicles; i++) {
     addIcicle();
 }
 
+
+
+/******************************************************
+
+FUN FUN FUNCTIONS
+
+*******************************************************/
+
 function homePage(){
   let imgHome = new Image();
   imgHome.onload = function(){
     context.drawImage(imgHome, 0, 0);
-  };
-  imgHome.src ="http://blog.mycoughdrop.com/content/images/2017/07/avalanche.jpg";
 }
-
+  imgHome.src ="http://blog.mycoughdrop.com/content/images/2017/07/avalanche.jpg";
+  };
 homePage();
 
-
 function addIcicle() {
-    let icicle = {
-        width: icicleWidth,
-        height: icicleHeight
-    }
-    resetIcicle(icicle);
-    icicles.push(icicle);
+  let icicle = {
+    width: icicleWidth,
+    height: icicleHeight
+  }
+  resetIcicle(icicle);
+  icicles.push(icicle);
 }
 
 // move the icicle to a random position near the top-of-canvas
@@ -80,13 +92,12 @@ function moveHero() {
 }
 moveHero();
 
-
 function animate() {
   // request another animation frame
   if (continueAnimating) {
     requestAnimationFrame(animate);
   }
-//increment score if still alive
+ //increment score if still alive
   if(incScore){
     score++;
   }
@@ -95,7 +106,6 @@ function animate() {
     let icicle = icicles[i];
     // test for icicle-hero collision
     if (isColliding(icicle, hero)) {
-      //alive = false;
       return deathPage();
     }
     // advance the icicles
@@ -136,6 +146,7 @@ function deathPage(){
 };
 
 
+// check for collision
 function isColliding(a, b) {
   return !(b.x > a.x + a.width || b.x + b.width < a.x || b.y > a.y + a.height || b.y + b.height < a.y);
 }
@@ -149,12 +160,6 @@ function drawEverything() {
   context.fillRect(0, 0, canvas.width, canvas.height);
 
   // draw the hero
-  // let imgHero = new Image();
-  // imgHero.onload = function(){
-  //   console.log('booyah');
-  //   context.drawImage(imgHero, hero.x, hero.y, hero.width, hero.height);
-  // }
-  // imgHero.src="http://68.media.tumblr.com/1277da84031c9ab632f3d9f1e9d6beab/tumblr_mn9ct2VVWP1r413h3o1_400.jpg";
   context.fillStyle = "black";
   context.fillRect(hero.x, hero.y, hero.width, hero.height);
   context.clearRect(hero.x+2, hero.y+2, 2, 2);
@@ -166,7 +171,6 @@ function drawEverything() {
   // draw all icicles
   for (let i = 0; i < icicles.length; i++) {
     let icicle = icicles[i];
-    // MAYBE ADD IMAGE OF ICICLE LATER, drawImage(iciclesImg,icicle.x,icicle.y)
     context.fillStyle = "white";
     context.strokeStyle = "black";
     context.strokeRect(icicle.x, icicle.y, icicle.width, icicle.height);
