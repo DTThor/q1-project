@@ -17,9 +17,9 @@ let startingScore = 0;
 let continueAnimating = false;
 let score = 0;
 let highscore = localStorage.getItem("highscore");
+let deathSound = false;
 let audio = document.createElement('audio');
 audio.src = 'icydeath.mp3';
-let deathSound = false;
 
 // hero variables
 let heroWidth = 10;
@@ -123,12 +123,15 @@ function animate() {
 }
 
 function deathPage(){
+
+  if(!deathSound){
+    audio.play();
+    deathSound = true;
+  }
   let imgGameOver = new Image();
   imgGameOver.onload = function(){
     context.drawImage(imgGameOver, 0, 0, 5, 5, 0, 0, canvas.width, canvas.height);
-    // console.log(highscore);
     if (score > highscore) {
-      // console.log('new high score');
       localStorage.setItem("highscore", score);
       context.fillText('NEW HIGHSCORE!!!', canvas.width / 2 - 170, canvas.height / 2 - 50);
       context.fillStyle = 'blue';
@@ -192,6 +195,7 @@ function drawEverything() {
 
 // button to start the game
 $("#start").click(function begin() {
+  deathSound = false;
   score = startingScore;
   highscore = localStorage.getItem("highscore");
   hero.x = canvas.width / 2;
