@@ -125,7 +125,7 @@ function animate() {
 function deathPage(){
   let imgGameOver = new Image();
   imgGameOver.onload = function(){
-    context.drawImage(imgGameOver, 0, 0);
+    context.drawImage(imgGameOver, 0, 0, 5, 5, 0, 0, canvas.width, canvas.height);
     if (score > highscore) {
       localStorage.setItem("highscore", score);
       context.fillText('NEW HIGHSCORE!!!', canvas.width / 2 - 170, canvas.height / 2 - 50);
@@ -138,7 +138,7 @@ function deathPage(){
     context.fillStyle = 'white';
     context.font = '32px monospace';
   };
-  imgGameOver.src ="http://cdn.wallpapersafari.com/12/10/eD53j0.jpg";
+  imgGameOver.src ="https://images.pexels.com/photos/6406/sun-moon-eclipse-march-2015.jpg?w=1260&h=750&auto=compress&cs=tinysrgb";
   window.onkeydown = function (event) {
     if(event.keycode === 13){
       begin();
