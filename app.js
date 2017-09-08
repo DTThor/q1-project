@@ -126,7 +126,9 @@ function deathPage(){
   let imgGameOver = new Image();
   imgGameOver.onload = function(){
     context.drawImage(imgGameOver, 0, 0, 5, 5, 0, 0, canvas.width, canvas.height);
+    // console.log(highscore);
     if (score > highscore) {
+      // console.log('new high score');
       localStorage.setItem("highscore", score);
       context.fillText('NEW HIGHSCORE!!!', canvas.width / 2 - 170, canvas.height / 2 - 50);
       context.fillStyle = 'blue';
@@ -191,6 +193,7 @@ function drawEverything() {
 // button to start the game
 $("#start").click(function begin() {
   score = startingScore;
+  highscore = localStorage.getItem("highscore");
   hero.x = canvas.width / 2;
   for (let i = 0; i < icicles.length; i++) {
         resetIcicle(icicles[i]);
