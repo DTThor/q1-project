@@ -53,9 +53,16 @@ FUN FUN FUNCTIONS
 function homePage(){
   let imgHome = new Image();
   imgHome.onload = function(){
-    context.drawImage(imgHome, 0, 0);
+    context.drawImage(imgHome, 0, 0, canvas.width, canvas.height);
+    context.fillRect(canvas.width/2, canvas.height - hero.height*2, hero.width * 2, hero.height*5);
+    context.fillStyle = "black";
+    context.clearRect(canvas.width/2 + 2, canvas.height - hero.height*2 + 2, 5, 6);
+    context.clearRect(canvas.width/2 + 12, canvas.height - hero.height*2 + 2, 5, 6);
+    context.clearRect(canvas.width/2 + 2, canvas.height - hero.height*2 +12, 15, 2);
+    context.strokeStyle = "lightgray";
+    context.strokeRect(hero.x, hero.y, hero.width, hero.height);
 }
-  imgHome.src ="http://blog.mycoughdrop.com/content/images/2017/07/avalanche.jpg";
+  imgHome.src ="http://d2ihp3fq52ho68.cloudfront.net/YTo2OntzOjI6ImlkIjtpOjEwMjc0NDY7czoxOiJ3IjtpOjEwMjA7czoxOiJoIjtpOjMyMDA7czoxOiJjIjtpOjA7czoxOiJzIjtpOjA7czoxOiJrIjtzOjQwOiI5YTZmMGI2ZGM1Mjg2ZmMyY2FiMWMwMmJmYWU3MDgxNTMwMDM2NWM2Ijt9";
   };
 homePage();
 
