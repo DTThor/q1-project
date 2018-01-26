@@ -6,15 +6,14 @@ This is the first game I have ever worked on, and I completed it in less than a 
 
 It's a simple game, but I think it's really fun to play, and I am proud that I was able to complete it in one week with essentially no previous programming experience (and absolutely none in HTML5 canvas).
 
-Home Menu:
-![Home Menu](../screenshots/homemenu.png?raw=true "Optional Title")
+## Home Menu
+![Home Menu](https://github.com/DTThor/q1-project/blob/master/screenshots/homemenu.png "Home Menu")
 
 
+## Kill Screen
+![Kill Screen](https://github.com/DTThor/q1-project/blob/master/screenshots/killscreen.png "Killscreen")
 
-Kill Screen:
-![Kill Screen](../screenshots/killscreen.png?raw=true "Optional Title")
 
-
-Gameplay:
-![Gameplay](../screenshots/gameplay.png?raw=true "Optional Title")
+## Gameplay
+![Gameplay](https://github.com/DTThor/q1-project/blob/master/screenshots/gameplay.png "Optional Title")
 
